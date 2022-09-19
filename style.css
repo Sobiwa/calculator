@@ -1,0 +1,88 @@
+body {
+    height: 100vh;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(100,100,100);
+}
+
+.mainContainer {
+    box-sizing: border-box;
+    width: 27rem;
+    height: 36rem;
+    border-radius: 50px;
+    background-color: rgb(175,175,175);
+}
+
+.content {
+    margin: 0.5rem;
+}
+.display {
+    display:flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    box-sizing: border-box;
+    font-size: 40px;
+    padding: 0.5em 1em 0.5em 1em;
+    height:9rem;
+    margin: 10px;
+    border-radius: 50px;
+    color: white;
+    background-color: rgb(60,60,60);
+}
+.row{
+    box-sizing: border-box;
+    display: flex;
+    height: 5rem;
+    gap: 2px;
+}
+.row.last {
+    margin-bottom: 10px;
+}
+.column{
+    display: flex;
+    justify-content: center;
+    align-items: center;;
+    font-size: 3em;
+    box-sizing: border-box;
+    /* border: 1px solid black; */
+    border-radius: 500px;
+    width: 6.7rem;
+    margin: 5px;
+}
+
+.top {
+    background-color: rgb(150,150,150);
+    color: white;
+}
+.digit {
+    background-color: rgb(225, 225, 225);
+}
+
+.operator {
+    color: white;
+    background-color: rgb(90,90,90);
+}
+
+.top:hover {
+    background-color: rgb(135,135,135)
+
+}
+
+.digit:hover{
+    background-color: rgb(210,210,210);
+}
+
+.operator:hover{
+    background-color: rgb(75,75,75);
+}
+
+.equals {
+    color: white;
+    background-color: rgb(50, 50, 50)
+}
+
+.equals:hover {
+    background-color: rgb(35,35,35)
+}
+
