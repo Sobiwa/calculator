@@ -10,7 +10,7 @@ function multiply(a,b) {
     return a*b;
 }
 
-function divide(a,b) {
+function division(a,b) {
     return a/b;
 }
 
@@ -29,8 +29,21 @@ function operate(a,operator,b) {
             result = multiply(a,b);
             break;
         case 'divide':
-            result = divide(a,b); 
+            result = division(a,b); 
             break;  
+    }
+    if (Number.isInteger(result) && result.toString().length>10) {
+        return result.toExponential(5);
+    }
+    if (!Number.isInteger(result) && result.toString().length > 10) {
+        let resultArray = result.toString().split('.');
+        console.log(resultArray);
+        let roundToLength = Math.pow(10,(9 - resultArray[0].length));
+        if (resultArray[0].length > 9) {
+            return result.toExponential(5);
+        } else {
+            result = Math.round(result * roundToLength) / roundToLength;
+        }
     }
 return result;
 }
@@ -53,14 +66,22 @@ function writeEquation(input) {
         equation.operator = '';
         equation.equaled = false;
     } else if (equation.operator === '') {
+        if (display.textContent.length > 9) {
+            return
+        } else {
         display.textContent += `${input}`
         equation.firstNumber = display.textContent;
+        }
     } else if (equation.operator !== '') {
         if (equation.secondNumber === '') {
             display.textContent = `${input}`;
         }
         else {
-            display.textContent += `${input}`;
+            if (display.textContent.length > 9) {
+                return
+            } else {
+                display.textContent += `${input}`;
+            }
         }
         equation.secondNumber = display.textContent;
     } 
@@ -88,6 +109,15 @@ function addOperator(input) {
 
 const display = document.querySelector('.display');
 display.textContent = 0;
+
+const dot = document.querySelector('.dot');
+dot.addEventListener('click', (e) => {
+    writeEquation('.');
+} )
+const zero = document.querySelector('.zero');
+zero.addEventListener('click', (e) => {
+writeEquation(0);
+})
 
 const one = document.querySelector('.one');
 one.addEventListener('click', (e) => {
@@ -132,8 +162,24 @@ plus.addEventListener('click', (e) => {
     addOperator('plus');
 })
 
+const minus = document.querySelector('.minus');
+minus.addEventListener('click', () => {
+    addOperator('minus');
+})
+const times = document.querySelector('.times');
+times.addEventListener('click', () => {
+    addOperator('times');
+})
+const divide = document.querySelector('.divide');
+divide.addEventListener('click', () => {
+    addOperator('divide');
+})
+
 const equals = document.querySelector('.equals');
 equals.addEventListener('click',(e) => {
+    if (equation.secondNumber === '') {
+        return;
+    }
     let outcome = operate(equation.firstNumber,equation.operator,equation.secondNumber);
     display.textContent = outcome;
     equation.firstNumber= display.textContent;
@@ -149,4 +195,5 @@ const clearOut = document.querySelector('.clear');
 clearOut.addEventListener('click', () => {
     clear();
 } )
+
 
