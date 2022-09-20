@@ -183,12 +183,15 @@ divide.addEventListener('click', () => {
 
 const percent = document.querySelector('.percent');
 percent.addEventListener('click', () => {
-    if (equation.secondNumber === '') {
+    if (equation.secondNumber === '' ) {
         display.textContent = display.textContent / 100;
-    } else {
+    } else if (equation.operator === 'plus' || equation.operator === 'minus') {
         let percentOf = (display.textContent/100) * equation.firstNumber
         display.textContent = cutToMax9(percentOf);
         equation.secondNumber = display.textContent;
+    } else if (equation.operator === 'times' || equation.operator === 'divide') {
+        display.textContent = display.textContent / 100;
+        equation.secondNumber = display.textContent;   
     }
     
 })
