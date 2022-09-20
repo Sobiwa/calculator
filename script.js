@@ -32,19 +32,7 @@ function operate(a,operator,b) {
             result = division(a,b); 
             break;  
     }
-    if (Number.isInteger(result) && result.toString().length>10) {
-        return result.toExponential(5);
-    }
-    if (!Number.isInteger(result) && result.toString().length > 10) {
-        let resultArray = result.toString().split('.');
-        console.log(resultArray);
-        let roundToLength = Math.pow(10,(9 - resultArray[0].length));
-        if (resultArray[0].length > 9) {
-            return result.toExponential(5);
-        } else {
-            result = Math.round(result * roundToLength) / roundToLength;
-        }
-    }
+    result = cutToMax9(result);
 return result;
 }
 
@@ -53,6 +41,24 @@ const equation = {
     secondNumber:'',
     operator:'',
     equaled: false,
+}
+
+function cutToMax9(result) {
+    if (Number.isInteger(result) && result.toString().length>10) {
+        return result.toExponential(5);
+    } else if (!Number.isInteger(result) && result.toString().length > 10) {
+        let resultArray = result.toString().split('.');
+        console.log(resultArray);
+        let roundToLength = Math.pow(10,(9 - resultArray[0].length));
+        if (resultArray[0].length > 9) {
+            return result.toExponential(5);
+        } else {
+            let newResult = Math.round(result * roundToLength) / roundToLength;
+            return newResult;
+        }
+    } else {
+        return result;
+    }
 }
 
 function writeEquation(input) {
@@ -175,10 +181,25 @@ divide.addEventListener('click', () => {
     addOperator('divide');
 })
 
+const percent = document.querySelector('.percent');
+percent.addEventListener('click', () => {
+    if (equation.secondNumber === '') {
+        display.textContent = display.textContent / 100;
+    } else {
+        let percentOf = (display.textContent/100) * equation.firstNumber
+        display.textContent = cutToMax9(percentOf);
+        equation.secondNumber = display.textContent;
+    }
+    
+})
+
+
 const equals = document.querySelector('.equals');
 equals.addEventListener('click',(e) => {
     if (equation.secondNumber === '') {
         return;
+    } else if (!equation.equaled) { //this is to account for percent and +/- buttons
+        equation.secondNumber = display.textContent;
     }
     let outcome = operate(equation.firstNumber,equation.operator,equation.secondNumber);
     display.textContent = outcome;
