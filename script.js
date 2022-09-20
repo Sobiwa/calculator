@@ -14,6 +14,7 @@ function division(a,b) {
     return a/b;
 }
 
+let operatorSymbol;
 function operate(a,operator,b) {
     a = +a;
     b = +b;
@@ -21,15 +22,19 @@ function operate(a,operator,b) {
     switch (operator) {
         case 'plus':
             result = add(a,b);
+            operatorSymbol = `+`
             break;
         case 'minus':
             result = subtract(a,b);
+            operatorSymbol = `-`
             break;
         case 'times':
             result = multiply(a,b);
+            operatorSymbol = `*`
             break;
         case 'divide':
             result = division(a,b); 
+            operatorSymbol = `/`;
             break;  
     }
     result = cutToMax9(result);
@@ -99,6 +104,7 @@ function clear() {
     equation.operator = ''
     equation.equaled =  false
     display.textContent = 0;
+    equationTracker.textContent = '';
 }
 
 function addOperator(input) {
@@ -107,6 +113,7 @@ function addOperator(input) {
     } else if (equation.operator !== '' && equation.secondNumber !== '') {
         let outcome = operate(equation.firstNumber,equation.operator,equation.secondNumber);
     display.textContent = outcome;
+    equationTracker.textContent = `${equation.firstNumber} ${operatorSymbol} ${equation.secondNumber} = `
     }
     equation.firstNumber = display.textContent;
     equation.secondNumber = '';
@@ -193,9 +200,20 @@ percent.addEventListener('click', () => {
         display.textContent = display.textContent / 100;
         equation.secondNumber = display.textContent;   
     }
-    
 })
 
+const plusMinus = document.querySelector('.plusMinus');
+plusMinus.addEventListener('click', () =>{
+    if (+display.textContent < 0) {
+        display.textContent = display.textContent.slice(1);
+    } else if (+display.textContent > 0) {
+        display.textContent = '-' + display.textContent;
+    } else {
+        return
+    }
+} )
+
+const equationTracker = document.querySelector('.equationTracker');
 
 const equals = document.querySelector('.equals');
 equals.addEventListener('click',(e) => {
@@ -205,6 +223,7 @@ equals.addEventListener('click',(e) => {
         equation.secondNumber = display.textContent;
     }
     let outcome = operate(equation.firstNumber,equation.operator,equation.secondNumber);
+    equationTracker.textContent = `${equation.firstNumber} ${operatorSymbol} ${equation.secondNumber} = `;
     display.textContent = outcome;
     equation.firstNumber= display.textContent;
     equation.equaled = true;

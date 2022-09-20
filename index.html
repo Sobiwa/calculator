@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,42 +9,47 @@
     <script src='script.js' defer></script>
     <title>calculator</title>
 </head>
+
 <body>
     <div class='mainContainer'>
         <div class='content'>
-        <div class='display'></div>
-        <div class='row'>
-            <div class='column clear top'>C</div>
-            <div class='column top'>&plusmn;</div>
-            <div class='column percent top'>&percnt;</div>
-            <div class='column backspace top'><img src='img/backspaceWhite.png' height='30'></div>
-        </div>
-        <div class='row'>
-            <div class='column seven digit'>7</div>
-            <div class='column eight digit'>8</div>
-            <div class='column nine digit'>9</div>
-            <div class='column divide operator'>&divide;</div>
-        </div>
-        <div class='row'>
-            <div class='column four digit'>4</div>
-            <div class='column five digit'>5</div>
-            <div class='column six digit'>6</div>
-            <div class='column times operator'>&times;</div>
-        </div>
-        <div class='row'>
-            <div class='column one digit'>1</div>
-            <div class='column two digit'>2</div>
-            <div class='column three digit'>3</div>
-            <div class='column minus operator'>&minus;</div>
-        </div>
-        <div class='row last'>
-            <div class='column zero digit'>0</div>
-            <div class='column dot digit'>.</div>
-            <div class='column equals'>&equals;</div>
-            <div class='column plus operator'>&plus;</div>
+            <div class='displayContainer'>
+                <div class='equationTracker'></div>
+                <div class='display'></div>
+            </div>
+            <div class='row'>
+                <div class='column clear top'>C</div>
+                <div class='column plusMinus top'>&plusmn;</div>
+                <div class='column percent top'>&percnt;</div>
+                <div class='column backspace top'><img src='img/backspaceWhite.png' height='30'></div>
+            </div>
+            <div class='row'>
+                <div class='column seven digit'>7</div>
+                <div class='column eight digit'>8</div>
+                <div class='column nine digit'>9</div>
+                <div class='column divide operator'>&divide;</div>
+            </div>
+            <div class='row'>
+                <div class='column four digit'>4</div>
+                <div class='column five digit'>5</div>
+                <div class='column six digit'>6</div>
+                <div class='column times operator'>&times;</div>
+            </div>
+            <div class='row'>
+                <div class='column one digit'>1</div>
+                <div class='column two digit'>2</div>
+                <div class='column three digit'>3</div>
+                <div class='column minus operator'>&minus;</div>
+            </div>
+            <div class='row last'>
+                <div class='column zero digit'>0</div>
+                <div class='column dot digit'>.</div>
+                <div class='column equals'>&equals;</div>
+                <div class='column plus operator'>&plus;</div>
+            </div>
         </div>
     </div>
-    </div>
-    
+
 </body>
+
 </html>
