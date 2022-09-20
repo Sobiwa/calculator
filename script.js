@@ -49,7 +49,7 @@ const equation = {
 }
 
 function cutToMax9(result) {
-    if (Number.isInteger(result) && result.toString().length>10) {
+    if (Number.isInteger(result) && result.toString().length>9) {
         return result.toExponential(5);
     } else if (!Number.isInteger(result) && result.toString().length > 10) {
         let resultArray = result.toString().split('.');
@@ -77,7 +77,7 @@ function writeEquation(input) {
         equation.operator = '';
         equation.equaled = false;
     } else if (equation.operator === '') {
-        if (display.textContent.length > 9) {
+        if (display.textContent.length > 8) {
             return
         } else {
         display.textContent += `${input}`
@@ -88,7 +88,7 @@ function writeEquation(input) {
             display.textContent = `${input}`;
         }
         else {
-            if (display.textContent.length > 9) {
+            if (display.textContent.length > 8) {
                 return
             } else {
                 display.textContent += `${input}`;
