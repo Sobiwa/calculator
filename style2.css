@@ -39,12 +39,13 @@ body {
             }
                 .equationTracker {
                     height: 2rem;
+                    font-size: 14px;
                     display:flex;
                     justify-content: flex-end;
                     align-items:flex-end;
-                    /* color: rgb(200,200,200); */
+                    color: rgb(73, 73, 73);
                     font-weight:100;
-                    padding-right: 2.4rem;
+                    padding-right: 2.2rem;
                 }
                 .display {
                     max-width: 100%;
@@ -54,7 +55,7 @@ body {
                     align-items: flex-end;
                     box-sizing: border-box;
                     font-size: 55px;
-                    height:4.6rem;
+                    height:4.2rem;
                     color: rgb(66, 66, 66);  
                 }
             .row{
@@ -63,7 +64,7 @@ body {
             max-width: 27rem;
             box-sizing: border-box;
             display: flex;
-            /* height: 6rem; */
+            /* box-shadow: 0.5px 0.5px 0.5px rgba(128, 128, 128, 0.121); */
             gap: 2px;
             }
             .row.last {
@@ -89,6 +90,7 @@ body {
                     border-radius: 500px;
                     width: 25%;
                     margin: 5px;
+                    box-shadow: 1px 2px 7px rgba(128, 128, 128, 0.15);
                 }
                     .column:hover {
                         border: 1px solid rgb(55, 255, 0);
