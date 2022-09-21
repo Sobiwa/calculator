@@ -16,6 +16,91 @@ const display = document.querySelector('.display');
 display.textContent = 0;
 
 //Digits (and dot)
+
+addEventListener('keydown', (e) => {
+    switch (e.key) {
+        case '0':
+            writeEquation(0);
+            break;
+        case '1':
+            writeEquation(1);
+            break;
+        case '2':
+            writeEquation(2);
+            break;
+        case '3':
+            writeEquation(3);
+            break;
+        case '4':
+            writeEquation(4);
+            break;
+        case '5':
+            writeEquation(5);
+            break;
+        case '6':
+            writeEquation(6);
+            break;
+        case '7':
+            writeEquation(7);
+            break;
+        case '8':
+            writeEquation(8);
+            break;
+        case '9':
+            writeEquation(9);
+            break;
+        case '.':
+            if (display.textContent.includes('.')) {
+                return
+            } else writeEquation('.');
+            break;
+        case '+':
+            addOperator('plus');
+            break;
+        case '-':
+            addOperator('minus');
+            break;
+        case '*':
+            addOperator('times');
+            break;
+        case ('/'):
+            addOperator('divide');
+            break;
+        case ('%'):
+            if (equation.secondNumber === '') {
+                display.textContent = display.textContent / 100;
+            } else if (equation.operator === 'plus' || equation.operator === 'minus') {
+                let percentOf = (display.textContent / 100) * equation.firstNumber
+                display.textContent = cutToMax9(percentOf);
+                equation.secondNumber = display.textContent;
+            } else if (equation.operator === 'times' || equation.operator === 'divide') {
+                display.textContent = display.textContent / 100;
+                equation.secondNumber = display.textContent;
+            }
+            break;
+        case ('c'):
+            clear();
+            break;
+        case ('='):
+            if (equation.operator === 'divide' && equation.secondNumber === '0' ) {
+                display.textContent = 'AHHHHHH!!!!';
+                setTimeout(() => {
+                    clear()
+                }, 500);
+                return;
+            } else if (equation.secondNumber === '') {
+                return;
+            } else if (!equation.equaled) { //this is to account for percent and +/- buttons
+                equation.secondNumber = display.textContent;
+            }
+            let outcome = operate(equation.firstNumber,equation.operator,equation.secondNumber);
+            equationTracker.textContent = `${equation.firstNumber} ${operatorSymbol} ${equation.secondNumber} = `;
+            display.textContent = outcome;
+            equation.firstNumber= display.textContent;
+            equation.equaled = true;
+            break;
+    }
+})
 const zero = document.querySelector('.zero');
 zero.addEventListener('click', (e) => {
 writeEquation(0);
