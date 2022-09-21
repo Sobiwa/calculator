@@ -161,7 +161,7 @@ clearOut.addEventListener('click', () => {
 //////////FUNCTIONS///////////
 //accepts input from user based on input already entered
 function writeEquation(input) {
-    let trueLength = removeCommas(display.textContent).length;
+    let trueLength = ignoreNegForLength(removeCommas(display.textContent));
     if (display.textContent == 0) {
         display.textContent = '';
     }
@@ -196,22 +196,32 @@ function writeEquation(input) {
 }
 
 removeCommas = num => num.toString().replaceAll(',', '');
+
+function ignoreNegForLength (num) {
+    let trueLength = num.length;
+    if (num.toString().includes('-')) {
+        trueLength -= 1;
+    }
+    return trueLength;
+}
    
 function addCommas(num) {
     num = removeCommas(num);
+    let numLength = ignoreNegForLength(num);
     let processedNonDecimals;
     if (num.toString().includes('e')) {
         processedNonDecimals = num;
-    } else if (num.length > 3 && num.toString().includes('.')) {
+    } else if (numLength > 3 && num.toString().includes('.')) {
         let numArray = num.split('.');
         let nonDecimals = numArray[0];
         nonDecimals = nonDecimals.toString();
-        if (3 < nonDecimals.length && nonDecimals.length < 7) {
+        numLength = ignoreNegForLength(nonDecimals);
+        if (3 < numLength && numLength < 7) {
             processedNonDecimals = nonDecimals.slice(0, -3) + ',' + 
             nonDecimals.slice(-3);
             numArray[0] = processedNonDecimals;
             processedNonDecimals = numArray.join('.');
-        } else if (nonDecimals.length > 6) {
+        } else if (numLength > 6) {
             processedNonDecimals = nonDecimals.slice(0, -6) + ',' + 
             nonDecimals.slice(-6, -3) + nonDecimals.slice(-3);
             numArray[0] = processedNonDecimals;
@@ -219,13 +229,13 @@ function addCommas(num) {
         } else {
             processedNonDecimals = num;
         }
-    } else if (num.length > 3) {
+    } else if (numLength > 3) {
         let nonDecimals = num;
         nonDecimals = nonDecimals.toString();
-        if (3 < nonDecimals.length && nonDecimals.length < 7) {
+        if (3 < numLength && numLength < 7) {
             processedNonDecimals = nonDecimals.slice(0, -3) + ',' + 
             nonDecimals.slice(-3);
-        } else if (nonDecimals.length > 6) {
+        } else if (numLength > 6) {
             processedNonDecimals = nonDecimals.slice(0, -6) + ',' + 
             nonDecimals.slice(-6, -3) + ',' + nonDecimals.slice(-3);
         }
