@@ -6,6 +6,7 @@ const equation = {
     equaled: false,
 }
 
+//For clearing highlights with keyboard use
 const Operators = document.querySelectorAll('.operator');
 
 //Assigned value in 'operate' function
@@ -17,7 +18,7 @@ const equationTracker = document.querySelector('.equationTracker');
 const display = document.querySelector('.display');
 display.textContent = 0;
 
-
+//Assigns function to each div
 const zero = document.querySelector('.zero');
 zero.addEventListener('click', (e) => {
 writeEquation(0);
@@ -166,8 +167,7 @@ clearOut.addEventListener('click', () => {
     clear();
 } )
 
-//Digits (and dot)
-
+//Keyboard functionality
 addEventListener('keydown', (e) => {
     switch (e.key) {
         case '0':
@@ -285,14 +285,6 @@ addEventListener('keydown', (e) => {
             break;
     }
 })
-
-function removeHighlight() {
-    Operators.forEach((operator) => {
-        if (operator.classList.contains('highlight')) {
-            operator.classList.remove('highlight');
-        }
-    })
-}
 
 addEventListener('keyup', (e) => {
     switch (e.key) {
@@ -537,7 +529,6 @@ function cutToMax9(result) {
     }
 }
 
-
 function clear() {
     removeHighlight();
     equation.firstNumber = ''
@@ -546,4 +537,12 @@ function clear() {
     equation.equaled =  false
     display.textContent = 0;
     equationTracker.textContent = '';
+}
+
+function removeHighlight() {
+    Operators.forEach((operator) => {
+        if (operator.classList.contains('highlight')) {
+            operator.classList.remove('highlight');
+        }
+    })
 }
