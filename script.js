@@ -195,19 +195,20 @@ percent.addEventListener('click', () => {
 const plusMinus = document.querySelector('.plusMinus');
 plusMinus.addEventListener('click', () =>{
     let numToProcess = +removeCommas(display.textContent);
-    if (numToProcess < 0) {
+    if (equation.firstNumber !== '' && equation.operator !== '' && equation.secondNumber === '') {
+        display.textContent = '-0';
+    } else if (numToProcess.toString().includes('-') || Object.is(numToProcess, -0)) {
         display.textContent = display.textContent.slice(1);
-    } else if (numToProcess > 0) {
+    } else if (!numToProcess.toString().includes('-')) {
         display.textContent = '-' + display.textContent;
-    } else {
-        return
-    }
+    } 
     if (equation.equaled) {
         equation.firstNumber = display.textContent;
     } else if (equation.operator === '' && equation.secondNumber === '') {
         equation.firstNumber = display.textContent;
+    } else if (equation.operator !== '' && equation.firstNumber !== '') {
+        equation.secondNumber = display.textContent;
     }
-    console.log(equation.firstNumber);
 } )
 
 const equals = document.querySelector('.equals');
@@ -247,8 +248,11 @@ clearOut.addEventListener('click', () => {
 //accepts input from user based on input already entered
 function writeEquation(input) {
     let trueLength = ignoreNegForLength(removeCommas(display.textContent));
-    if (display.textContent == 0) {
+    if (display.textContent === '0' && input !== '.') {
         display.textContent = '';
+    } else if (display.textContent === '-0' && input !== '.') {
+        console.log(display.textContent);
+        display.textContent = display.textContent.slice(0,-1);
     }
     if (equation.equaled) {
         display.textContent = `${input}`;
