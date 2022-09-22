@@ -110,17 +110,26 @@ divide.addEventListener('click', () => {
 //Advanced operators
 const percent = document.querySelector('.percent');
 percent.addEventListener('click', () => {
-    if (equation.secondNumber === '' ) {
-        display.textContent = display.textContent / 100;
-    } else if (equation.operator === 'plus' || equation.operator === 'minus') {
-        let percentOf = (display.textContent/100) * equation.firstNumber
-        display.textContent = cutToMax9(percentOf);
-        equation.secondNumber = display.textContent;
-    } else if (equation.operator === 'times' || equation.operator === 'divide') {
-        display.textContent = display.textContent / 100;
-        equation.secondNumber = display.textContent;   
-    }
+    calculatePercent();
 })
+
+function calculatePercent() {
+    let firstNumberWithOutCommas = removeCommas(equation.firstNumber)
+    let numberToProcess = removeCommas(display.textContent);
+    if (equation.secondNumber === '' ) {
+        numberToProcess = numberToProcess / 100;
+        display.textContent = addCommas(cutToMax9(numberToProcess));
+    } else {
+        if (equation.operator === 'plus' || equation.operator === 'minus') {
+        numberToProcess = (numberToProcess/100) * firstNumberWithOutCommas;
+    } else if (equation.operator === 'times' || equation.operator === 'divide') {
+        numberToProcess = numberToProcess / 100;
+    }
+    numberToProcess = addCommas(cutToMax9(numberToProcess));
+    display.textContent = numberToProcess;
+    equation.secondNumber = display.textContent;
+}
+}
 
 const plusMinus = document.querySelector('.plusMinus');
 plusMinus.addEventListener('click', () =>{
@@ -247,16 +256,17 @@ addEventListener('keydown', (e) => {
             divide.classList.add('activeByKey');
             break;
         case ('%'):
-            if (equation.secondNumber === '') {
-                display.textContent = display.textContent / 100;
-            } else if (equation.operator === 'plus' || equation.operator === 'minus') {
-                let percentOf = (display.textContent / 100) * equation.firstNumber
-                display.textContent = cutToMax9(percentOf);
-                equation.secondNumber = display.textContent;
-            } else if (equation.operator === 'times' || equation.operator === 'divide') {
-                display.textContent = display.textContent / 100;
-                equation.secondNumber = display.textContent;
-            }
+            // if (equation.secondNumber === '') {
+            //     display.textContent = display.textContent / 100;
+            // } else if (equation.operator === 'plus' || equation.operator === 'minus') {
+            //     let percentOf = (display.textContent / 100) * equation.firstNumber
+            //     display.textContent = cutToMax9(percentOf);
+            //     equation.secondNumber = display.textContent;
+            // } else if (equation.operator === 'times' || equation.operator === 'divide') {
+            //     display.textContent = display.textContent / 100;
+            //     equation.secondNumber = display.textContent;
+            // }
+            calculatePercent();
             percent.classList.add('activeByKey');
             break;
         case ('c'):
