@@ -71,9 +71,17 @@ nine.addEventListener('click', () => {
 
 const dot = document.querySelector('.dot');
 dot.addEventListener('click', (e) => {
-    if (display.textContent.includes('.')) {
+    if (display.textContent.includes('.') && equation.operator === '') {
         return
-    } else writeEquation('.');
+    } else if ((equation.operator !== '' && equation.secondNumber === '') ||
+    equation.equaled) {
+        writeEquation(0);
+        writeEquation('.');
+    } else if (display.textContent.includes('.') && equation.operator !== '' &&
+    equation.secondNumber !== '') {
+        return
+    } 
+    else writeEquation('.');
 } )
 
 //Operators
