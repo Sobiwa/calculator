@@ -6,6 +6,8 @@ const equation = {
     equaled: false,
 }
 
+const Operators = document.querySelectorAll('.operator');
+
 //Assigned value in 'operate' function
 let operatorSymbol;
 
@@ -15,92 +17,7 @@ const equationTracker = document.querySelector('.equationTracker');
 const display = document.querySelector('.display');
 display.textContent = 0;
 
-//Digits (and dot)
 
-addEventListener('keydown', (e) => {
-    switch (e.key) {
-        case '0':
-            writeEquation(0);
-            break;
-        case '1':
-            writeEquation(1);
-            break;
-        case '2':
-            writeEquation(2);
-            break;
-        case '3':
-            writeEquation(3);
-            break;
-        case '4':
-            writeEquation(4);
-            break;
-        case '5':
-            writeEquation(5);
-            break;
-        case '6':
-            writeEquation(6);
-            break;
-        case '7':
-            writeEquation(7);
-            break;
-        case '8':
-            writeEquation(8);
-            break;
-        case '9':
-            writeEquation(9);
-            break;
-        case '.':
-            if (display.textContent.includes('.')) {
-                return
-            } else writeEquation('.');
-            break;
-        case '+':
-            addOperator('plus');
-            break;
-        case '-':
-            addOperator('minus');
-            break;
-        case '*':
-            addOperator('times');
-            break;
-        case ('/'):
-            addOperator('divide');
-            break;
-        case ('%'):
-            if (equation.secondNumber === '') {
-                display.textContent = display.textContent / 100;
-            } else if (equation.operator === 'plus' || equation.operator === 'minus') {
-                let percentOf = (display.textContent / 100) * equation.firstNumber
-                display.textContent = cutToMax9(percentOf);
-                equation.secondNumber = display.textContent;
-            } else if (equation.operator === 'times' || equation.operator === 'divide') {
-                display.textContent = display.textContent / 100;
-                equation.secondNumber = display.textContent;
-            }
-            break;
-        case ('c'):
-            clear();
-            break;
-        case ('='):
-            if (equation.operator === 'divide' && equation.secondNumber === '0' ) {
-                display.textContent = 'AHHHHHH!!!!';
-                setTimeout(() => {
-                    clear()
-                }, 500);
-                return;
-            } else if (equation.secondNumber === '') {
-                return;
-            } else if (!equation.equaled) { //this is to account for percent and +/- buttons
-                equation.secondNumber = display.textContent;
-            }
-            let outcome = operate(equation.firstNumber,equation.operator,equation.secondNumber);
-            equationTracker.textContent = `${equation.firstNumber} ${operatorSymbol} ${equation.secondNumber} = `;
-            display.textContent = outcome;
-            equation.firstNumber= display.textContent;
-            equation.equaled = true;
-            break;
-    }
-})
 const zero = document.querySelector('.zero');
 zero.addEventListener('click', (e) => {
 writeEquation(0);
@@ -194,6 +111,10 @@ percent.addEventListener('click', () => {
 
 const plusMinus = document.querySelector('.plusMinus');
 plusMinus.addEventListener('click', () =>{
+    togglePlusMinus();
+} )
+
+function togglePlusMinus() {
     let numToProcess = +removeCommas(display.textContent);
     if (equation.firstNumber !== '' && equation.operator !== '' && equation.secondNumber === '') {
         display.textContent = '-0';
@@ -209,10 +130,11 @@ plusMinus.addEventListener('click', () =>{
     } else if (equation.operator !== '' && equation.firstNumber !== '') {
         equation.secondNumber = display.textContent;
     }
-} )
+}
 
 const equals = document.querySelector('.equals');
 equals.addEventListener('click',(e) => {
+    removeHighlight();
     if (equation.operator === 'divide' && equation.secondNumber === '0' ) {
         display.textContent = 'AHHHHHH!!!!';
         setTimeout(() => {
@@ -243,6 +165,199 @@ const clearOut = document.querySelector('.clear');
 clearOut.addEventListener('click', () => {
     clear();
 } )
+
+//Digits (and dot)
+
+addEventListener('keydown', (e) => {
+    switch (e.key) {
+        case '0':
+            writeEquation(0);
+            zero.classList.add('activeByKey');
+            break;
+        case '1':
+            writeEquation(1);
+            one.classList.add('activeByKey');
+            break;
+        case '2':
+            writeEquation(2);
+            two.classList.add('activeByKey');
+            break;
+        case '3':
+            writeEquation(3);
+            three.classList.add('activeByKey');
+            break;
+        case '4':
+            writeEquation(4);
+            four.classList.add('activeByKey');
+            break;
+        case '5':
+            writeEquation(5);
+            five.classList.add('activeByKey');
+            break;
+        case '6':
+            writeEquation(6);
+            six.classList.add('activeByKey');
+            break;
+        case '7':
+            writeEquation(7);
+            seven.classList.add('activeByKey');
+            break;
+        case '8':
+            writeEquation(8);
+            eight.classList.add('activeByKey');
+            break;
+        case '9':
+            writeEquation(9);
+            nine.classList.add('activeByKey');
+            break;
+        case '.':
+            if (display.textContent.includes('.')) {
+                return
+            } else writeEquation('.');
+            dot.classList.add('activeByKey');
+            break;
+        case '+':
+            addOperator('plus');
+            plus.classList.add('highlight');
+            plus.classList.add('activeByKey');
+            break;
+        case '-':
+            addOperator('minus');
+            minus.classList.add('highlight');
+            minus.classList.add('activeByKey');
+            break;
+        case '*':
+            addOperator('times');
+            times.classList.add('highlight');
+            times.classList.add('activeByKey');
+            break;
+        case ('/'):
+            addOperator('divide');
+            divide.classList.add('highlight');
+            divide.classList.add('activeByKey');
+            break;
+        case ('%'):
+            if (equation.secondNumber === '') {
+                display.textContent = display.textContent / 100;
+            } else if (equation.operator === 'plus' || equation.operator === 'minus') {
+                let percentOf = (display.textContent / 100) * equation.firstNumber
+                display.textContent = cutToMax9(percentOf);
+                equation.secondNumber = display.textContent;
+            } else if (equation.operator === 'times' || equation.operator === 'divide') {
+                display.textContent = display.textContent / 100;
+                equation.secondNumber = display.textContent;
+            }
+            percent.classList.add('activeByKey');
+            break;
+        case ('c'):
+            clear();
+            clearOut.classList.add('activeByKey');
+            break;
+        case ('='):
+            removeHighlight();
+            if (equation.operator === 'divide' && equation.secondNumber === '0' ) {
+                display.textContent = 'AHHHHHH!!!!';
+                setTimeout(() => {
+                    clear()
+                }, 500);
+                return;
+            } else if (equation.secondNumber === '') {
+                return;
+            } else if (!equation.equaled) { //this is to account for percent and +/- buttons
+                equation.secondNumber = display.textContent;
+            }
+            let outcome = operate(equation.firstNumber,equation.operator,equation.secondNumber);
+            equationTracker.textContent = `${equation.firstNumber} ${operatorSymbol} ${equation.secondNumber} = `;
+            display.textContent = outcome;
+            equation.firstNumber= display.textContent;
+            equation.equaled = true;
+            equals.classList.add('activeByKey');
+            break;
+        case ('_'):
+            togglePlusMinus();
+            plusMinus.classList.add('activeByKey');
+            break;
+        case 'Backspace':
+            let newValue = display.textContent.slice(0,-1);
+            newValue = addCommas(newValue);
+            display.textContent = newValue;
+            backspace.classList.add('activeByKey');
+            break;
+    }
+})
+
+function removeHighlight() {
+    Operators.forEach((operator) => {
+        if (operator.classList.contains('highlight')) {
+            operator.classList.remove('highlight');
+        }
+    })
+}
+
+addEventListener('keyup', (e) => {
+    switch (e.key) {
+        case '0':
+            zero.classList.remove('activeByKey');
+            break;
+        case '1':
+            one.classList.remove('activeByKey');
+            break;
+        case '2':
+            two.classList.remove('activeByKey');
+            break;
+        case '3':
+            three.classList.remove('activeByKey');
+            break;
+        case '4':
+            four.classList.remove('activeByKey');
+            break;
+        case '5':
+            five.classList.remove('activeByKey');
+            break;
+        case '6':
+            six.classList.remove('activeByKey');
+            break;
+        case '7':
+            seven.classList.remove('activeByKey');
+            break;
+        case '8':
+            eight.classList.remove('activeByKey');
+            break;
+        case '9':
+            nine.classList.remove('activeByKey');
+            break;
+        case '.':
+            dot.classList.remove('activeByKey');
+            break;
+        case '+':
+            plus.classList.remove('activeByKey');
+            break;
+        case '-':
+            minus.classList.remove('activeByKey');
+            break;
+        case '*':
+            times.classList.remove('activeByKey');
+            break;
+        case ('/'):
+            divide.classList.remove('activeByKey');
+            break;
+        case ('%'):
+            percent.classList.remove('activeByKey');
+            break;
+        case ('c'):
+            clearOut.classList.remove('activeByKey');
+            break;
+        case ('='):
+            equals.classList.remove('activeByKey');
+            break;
+        case ('_'):
+            plusMinus.classList.remove('activeByKey');
+            break;
+        case('Backspace'):
+            backspace.classList.remove('activeByKey')
+            break;
+    }
+})
 
 //////////FUNCTIONS///////////
 //accepts input from user based on input already entered
@@ -336,6 +451,7 @@ function addCommas(num) {
 
 //Adds new operator and executes equation if required fields are filled
 function addOperator(input) {
+    removeHighlight();
     if (equation.operator === 'divide' && equation.secondNumber === '0' ) {
         display.textContent = 'AHHHHHH!!!!';
         setTimeout(() => {
@@ -423,6 +539,7 @@ function cutToMax9(result) {
 
 
 function clear() {
+    removeHighlight();
     equation.firstNumber = ''
     equation.secondNumber = ''
     equation.operator = ''
