@@ -71,6 +71,10 @@ nine.addEventListener('click', () => {
 
 const dot = document.querySelector('.dot');
 dot.addEventListener('click', (e) => {
+    addDot();
+} )
+
+function addDot() {
     if (display.textContent.includes('.') && equation.operator === '') {
         return
     } else if ((equation.operator !== '' && equation.secondNumber === '') ||
@@ -82,7 +86,7 @@ dot.addEventListener('click', (e) => {
         return
     } 
     else writeEquation('.');
-} )
+}
 
 //Operators
 const plus = document.querySelector('.plus');
@@ -219,9 +223,7 @@ addEventListener('keydown', (e) => {
             nine.classList.add('activeByKey');
             break;
         case '.':
-            if (display.textContent.includes('.')) {
-                return
-            } else writeEquation('.');
+            addDot();
             dot.classList.add('activeByKey');
             break;
         case '+':
